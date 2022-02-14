@@ -18,6 +18,14 @@ from abstracts.models import (
      DateTimeCustom,
 )
 
+class GroupQuerySet(QuerySet):
+
+    HIGH_GPA_LEVEL = 4.0
+
+    def get_students_with_high_gpa(self) -> QuerySet :
+        return self.filter(
+            gpa__gt = self.HIGH_GPA_LEVEL
+        )
 
 class Group(DateTimeCustom):
     NAME_MAX_LENGTH = 10
@@ -37,6 +45,16 @@ class Group(DateTimeCustom):
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
 
+    objects = GroupQuerySet().as_manager()
+
+class AccountQuerySet(QuerySet):
+
+
+
+    def get_superusers(self) -> QuerySet :
+        return self.filter(
+            user__is_superuser = True
+        )  
 
 class Account(DateTimeCustom):
     FULL_NAME_MAX_LENGTH = 20
@@ -62,6 +80,7 @@ class Account(DateTimeCustom):
         verbose_name = 'Аккаунт'
         verbose_name_plural = 'Аккаунты'
 
+    objects = AccountQuerySet().as_manager()
 
 class StudentQuerySet(QuerySet):
     ADULT_AGE = 18
