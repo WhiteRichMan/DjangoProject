@@ -50,6 +50,20 @@ class StudentAdmin(admin.ModelAdmin):
     readonly_fields = ()
     STUDENT_MAX_AGE = 16
 
+    list_filter = (
+        'age',
+        'gpa',
+    )
+
+    search_fields = (
+            'account_full_name',
+    )
+
+    list_display = (
+        'group',
+        'age',
+    )
+
     def student_age_validation(
         self,
         obj: Optional[Student]
