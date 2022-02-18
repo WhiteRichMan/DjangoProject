@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import QuerySet
 from django.http import HttpResponse
 from django.apps import AppConfig
 from django.core.handlers.wsgi import WSGIRequest
@@ -31,3 +32,16 @@ def index_html(request: WSGIRequest) -> HttpResponse:
     return HttpResponse(
         '<h1>Start Page</h1>'
     )
+
+def index_html_test(request: WSGIRequest) -> HttpResponse:
+    users: QuerySet = User.objects.all()
+    context: dict = {
+        'ctx_title' : 'Main page',
+        'ctx_users' : users,
+    }
+    return render(
+        request,
+        'index.html',
+        context
+    )
+    
