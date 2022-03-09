@@ -1,68 +1,78 @@
-from datetime import datetime
 from typing import Optional
+
 from django.contrib import admin
 from django.core.handlers.wsgi import WSGIRequest
-from . models import Account
-from . models import Group
-from . models import Student
-from . models import Professor
-
-class AccountAdmin(admin.ModelAdmin):
-    readonly_fields = ()
-
-    def get_readonly_fields(
-        self,
-        request: WSGIRequest,
-        obj: Optional[Account] = None
-    ) -> tuple:
-
-
-        if obj:
-            return self.readonly_fields + ('description',)
-        return self.readonly_fields
-
-admin.site.register(
-    Account,AccountAdmin
+from auths.models import CustomUser
+from abstracts.models import (
+     DateTimeCustom,
 )
 
-
-class GroupAdmin(admin.ModelAdmin):
-    readonly_fields = ()
-
-
-    def get_readonly_fields(
-        self,
-        request: WSGIRequest,
-        obj: Optional[Account] = None
-    ) -> tuple:
-        if obj:
-            return self.readonly_fields + ('name',)
-        return self.readonly_fields
-
-
-
-admin.site.register(
-    Group, GroupAdmin
+from . models import (
+    Group,
+    Student,
+    Professor,
     )
 
 
-class StudentAdmin(admin.ModelAdmin):
-    readonly_fields = ()
-    STUDENT_MAX_AGE = 16
+# class UserAdmin(admin.ModelAdmin):
+    # redonly_fields = ()
+    # user_fields = ('first_name', 'last_name', 'email', 
+    #                     'username', 'is_active', 'is_staff',
+    #                     'is_superuser', 'date_joined', 'last_login',)
+                        
+    # def get_readonly_fields(
+    #     self,
+    #     request: WSGIRequest,
+    #     obj: Optional[User] = None
+    # ) -> tuple:
+    #     if obj:
+    #         return self.readonly_fields + self.user_fields
+    #     return self.readonly_fields
 
+
+# class AccountAdmin(admin.ModelAdmin):
+    # readonly_fields = (
+    #     'datatime_created',
+    #     'datatime_updated',
+    #     'datatime_deleted',
+    #     )
+
+    # def get_readonly_fields(
+    #     self,
+    #     request: WSGIRequest,
+    #     obj: Optional[Account] = None
+    # ) -> tuple:
+    #     if obj:
+    #         return self.readonly_fields + ('description',)
+    #     return self.readonly_fields
+
+
+class GroupAdmin(admin.ModelAdmin):
+    readonly_fields = (
+        'datetime_created',
+        'datetime_updated',
+        'datetime_delited',
+        )
+
+
+class StudentAdmin(admin.ModelAdmin):
+    readonly_fields = (
+        'datetime_created',
+        'datetime_updated',
+        'datetime_delited',
+        )
     list_filter = (
         'age',
         'gpa',
     )
-
-    search_fields = (
-            'account_full_name',
+    searh_filter = (
+        'account__full_name',
     )
-
     list_display = (
-        'group',
         'age',
+        'gpa',
     )
+    STUDENT_MAX_AGE = 16
 
     def student_age_validation(
         self,
@@ -83,14 +93,24 @@ class StudentAdmin(admin.ModelAdmin):
             return self.readonly_fields + ('age',)
         return self.readonly_fields
 
+
+class ProfessorAdmin(admin.ModelAdmin):
+    readonly_fields = (
+        'datetime_created',
+        'datetime_updated',
+        'datetime_delited',
+        )
+
+
+
+admin.site.register(
+    Group, GroupAdmin
+    )
+
 admin.site.register(
     Student, StudentAdmin
     )
 
-
-class ProfessorAdmin(admin.ModelAdmin):
-    pass
-
 admin.site.register(
     Professor, ProfessorAdmin
-)
+    )

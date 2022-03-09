@@ -18,6 +18,8 @@ from abstracts.models import (
      DateTimeCustom,
 )
 
+from auths.models import CustomUser
+
 class GroupQuerySet(QuerySet):
 
     HIGH_GPA_LEVEL = 4.0
@@ -59,8 +61,8 @@ class AccountQuerySet(QuerySet):
 class Account(DateTimeCustom):
     FULL_NAME_MAX_LENGTH = 20
 
-    user = models.OneToOneField(
-        User,
+    CustomUser = models.OneToOneField(
+        CustomUser,
         verbose_name='пользователь',
         on_delete=models.CASCADE
     )
@@ -124,6 +126,7 @@ class Student(DateTimeCustom):
         *args: tuple,
         **kwargs: dict
     ) -> None:
+    
         if self.age > self.MAX_AGE:
             # v1
             # self.age = self.MAX_AGE

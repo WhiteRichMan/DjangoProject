@@ -20,5 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     path(settings.ADMIN_SITE_URL, admin.site.urls),
-    path('' , include('djangoapp.urls'))
+    path('' , include('djangoapp.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
