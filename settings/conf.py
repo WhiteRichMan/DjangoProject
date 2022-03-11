@@ -1,11 +1,13 @@
 from . import get_env_variable
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 # Тут вообще вот так SECRET_KEY = get_env_variable('SECRET_KEY') но надо разобраться с VIRTUALENVWRAPPER
 
 # Debug toolbar panel configuration view
 #
+SECRET_KEY = get_env_variable('SECRET_KEY')
+ADMIN_SITE_URL = get_env_variable('ADMIN_SITE_URL')
+
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',

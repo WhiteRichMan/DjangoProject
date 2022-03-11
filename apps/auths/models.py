@@ -4,6 +4,37 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.core.exceptions import ValidationError
 from django.utils import timezone 
 
+# class File():
+#     title: str
+#     file: obj
+
+#     class Meta():
+#         ordering = (
+#             'datetime_deleted'
+#         )
+#         verbose_name = 'Homework'
+#         verbose_name_plural = 'Homeworks'
+# # 
+# class Homework():
+#     title: str 
+#     subject: str
+#     logo: img
+#     is_checked: bool
+#     class Meta():
+#         ordering = (
+#             'datetime_deleted'
+#         )
+#         verbose_name = 'File'
+#         verbose_name_plural = 'Files'    
+
+# Homework.objects.get_not_deleted()
+
+# self.filter(datetime_deleted__isnull=True)
+
+# is_deleted = BooleanField()
+
+# self.filter(is_deleted=False)
+
 class CustomUserManager(BaseUserManager):
 
     def create_user(

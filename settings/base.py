@@ -13,24 +13,27 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os #
 import sys #
 from pathlib import Path
+from .conf import *
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 sys.path.append(os.path.join(BASE_DIR,'apps'))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# ADMIN_SITE_URL = "m/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+%xkuf@7!)hfn(dn&6*v()j3=**&%di_^a)070mmbz%=^w56!='
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-ADMIN_SITE_URL = 'myadmin/'
 # Application definition
 
 DJANGO_AND_THIRD_PARTY_APPS = [

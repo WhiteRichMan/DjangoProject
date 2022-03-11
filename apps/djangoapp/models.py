@@ -158,6 +158,8 @@ class Student(DateTimeCustom):
 
 
 class Professor(DateTimeCustom):
+
+
     FULL_NAME_MAX_LENGTH = 20
     TOPIC_MAX_LENGTH = 10
 
@@ -213,3 +215,42 @@ class Professor(DateTimeCustom):
         )
         verbose_name = 'Профессор'
         verbose_name_plural = 'Профессоры'
+
+
+class HomeworkQuerySet(QuerySet):
+
+    def get_not_deleted(self) -> QuerySet:
+        return self.filter(
+            datetime_deleted_isnull=True
+        )
+
+class Homework(DateTimeCustom):
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.PROTECT
+    )
+
+    title = models.CharField(max_length=100)
+    subject = models.CharField(max_length=50)
+    logo = models.ImageField(
+        'Logo homework',
+        upload_to='homework/',
+        max_length=255
+    )
+    is_checked = models.BooleanField(default=False)
+
+    objects = HomeworkQuerySet().as_manager()
+
+    def __str__(self) -> str:
+        return f'{self.subject} | {self.title}'
+
+    class Meta:
+        ordering = (
+            '-datetime_created',
+        )
+        verbose_name = 'Homework'
+        verbose_name_plural = 'Homeworks'
+
+# class FileQuerySet(QuerySet):
+
+
+# class File(AbstractDateTime):

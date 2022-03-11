@@ -15,11 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from djangoapp import views
 
 from django.conf import settings
 
 urlpatterns = [
     path(settings.ADMIN_SITE_URL, admin.site.urls),
-    path('' , include('djangoapp.urls')),
+    path('index' , include('djangoapp.urls')),
+
+    path('register/', views.register, name='page_register'),
+    path('login/',    views.login,    name='page_login'),
+    path('logout/',   views.logout,   name='page_logout'),
+    
     path('__debug__/', include('debug_toolbar.urls')),
 ]
+
