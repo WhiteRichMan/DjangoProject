@@ -20,8 +20,9 @@ from djangoapp import views
 from django.conf import settings
 
 urlpatterns = [
+    path('', include('universty.urls')),
     path(settings.ADMIN_SITE_URL, admin.site.urls),
-    path('index' , include('djangoapp.urls')),
+    # path('index' , include('djangoapp.urls')),
 
     path('register/', views.register, name='page_register'),
     path('login/',    views.login,    name='page_login'),

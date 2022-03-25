@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'university/css/showUser.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+
+    <title>{% block title %}{{ ctx_title }}{% endblock %}</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__avatar"></div>
+    </header>
+    <main>
+        <div class="basic__info">
+            <h2 style="margin-bottom: 15px;">Basic information</h2>
+            <div class="user__name basic__info__block">
+                <h3>Email</h3>
+                <h3 id="firstname">{{ ctx_user.email }}</h3>
+            </div>
+
+            <div class="user__name basic__info__block">
+                <h3>Active</h3>
+                <h3 id="lastname">{{ ctx_user.is_active }}</h3>
+            </div>
+
+            <div class="user__name basic__info__block">
+                <h3>Joined</h3>
+                <h3 id="username">{{ ctx_user.date_joined }}</h3>
+            </div>
+        </div>
+
+        <!-- Line -->
+        <div class="vertical"></div>
+        <!-- LINE -->
+
+        <div class="user__settings">
+            <h2 style="margin-bottom: 15px;">CustomUser settings</h2>
+            <div class="settings__language basic__info__block">
+                <h3>Language</h3>
+                <h3 id="language">...</h3>
+            </div>
+
+            <div class="settings__country basic__info__block">
+                <h3>Country</h3>
+                <h3 id="country">...</h3>
+            </div>
+
+            <div class="settings__btn basic__info__block">
+                <a href="#">Edit</a>
+                <a href="#">Change password</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

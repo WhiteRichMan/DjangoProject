@@ -1,66 +1,92 @@
 from typing import Optional
 
 from django.contrib import admin
-from django.http import HttpRequest
 from django.contrib.auth.admin import UserAdmin
+from django.core.handlers.wsgi import WSGIRequest
 
-from auths.models import (
-    CustomUser,
-)
 from auths.forms import (
     CustomUserCreationForm,
     CustomUserChangeForm,
 )
+from auths.models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
-    # Форма - некая вспомогательная сущность между моделями
-    # и как правило html, сериалайзерами и т.д
     form = CustomUserChangeForm
     model = CustomUser
+
     fieldsets = (
-        (
-            None, {
-                'fields': (
-                    'email', 'password',
-                ),
-            }
-        ),
-        (
-            'Permissions', {
-                'fields': ('is_active',)
-            }
-        ),
-    )
-    # for fields to be used in editing users
-    add_fieldsets = (
-        (
-            None, {
-                'classes': ('wide',),
-                'fields': (
-                    'email', 'password1', 'password2', 'is_active',
-                ),
-            }
-        ),
-    )
-    # for fields to be used when creating a user
-    list_display = ('email', 'is_active',)
-    list_filter = ('email', 'is_active',)
-    search_fields = ('email',)
-    ordering = ('email',)
-    
-
-    def get_readonly_fields(self, request: HttpRequest,
-                            obj: Optional[CustomUser] = None) -> tuple:
-        if obj:
-            return self.readonly_fields + (
+        ('Information', {
+            'fields': (
                 'email',
-                'is_root',
-                'is_staff',
-                'datetime_joined',
+                'password',
+                'date_joined',
             )
-        return self.readonly_fields
+        }),
+        ('Permissions', {
+            'fields': (
+                'is_superuser',
+                'is_staff',
+                'is_active',
+            )
+        }),
+    )
+    # NOTE: Used to define the fields that
+    #       will be displayed on the create-user page
+    #
+    add_fieldsets = (
+        (None, {
+            'classes': (
+                'wide',
+            ),
+            'fields': (
+                'email',
+                'password1',
+                'password2',
+                'is_active',
+            ),
+        }),
+    )
+    search_fields = (
+        'email',
+    )
+    readonly_fields = (
+        'date_joined',
+        'is_superuser',
+        'is_staff',
+        'is_active',
+    )
+    list_display = (
+        'email',
+        'password',
+        'date_joined',
+        'is_staff',
+        'is_active',
+    )
+    list_filter = (
+        'email',
+        'is_superuser',
+        'is_staff',
+        'is_active',
+    )
+    ordering = (
+        'email',
+    )
+
+    def get_readonly_fields(
+        self,
+        request: WSGIRequest,
+        obj: Optional[CustomUser] = None
+    ) -> tuple:
+        if not obj:
+            return self.readonly_fields
+
+        return self.readonly_fields + (
+            'email',
+        )
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(
+    CustomUser, CustomUserAdmin
+)

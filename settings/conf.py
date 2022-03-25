@@ -1,13 +1,22 @@
 from . import get_env_variable
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# Тут вообще вот так SECRET_KEY = get_env_variable('SECRET_KEY') но надо разобраться с VIRTUALENVWRAPPER
 
-# Debug toolbar panel configuration view
+# ------------------------------------------------
 #
 SECRET_KEY = get_env_variable('SECRET_KEY')
 ADMIN_SITE_URL = get_env_variable('ADMIN_SITE_URL')
 
+# ------------------------------------------------
+#
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = get_env_variable('EMAIL_HOST')
+# EMAIL_HOST_USER = get_env_variable('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = 587
+
+# ------------------------------------------------
+#
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',
@@ -24,7 +33,7 @@ DEBUG_TOOLBAR_PANELS = [
 ]
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-# Configuration with shell_plus
+# ------------------------------------------------
 #
 SHELL_PLUS_PRE_IMPORTS = [
     ('django.db', ('connection', 'reset_queries', 'connections')),
@@ -32,6 +41,9 @@ SHELL_PLUS_PRE_IMPORTS = [
     ('json', ('loads', 'dumps')),
 ]
 SHELL_PLUS_MODEL_ALIASES = {
+    'auths': {
+        'CustomUser': 'U',
+    },
     'university': {
         'Student': 'S',
         'Account': 'A',
