@@ -31,20 +31,22 @@
 
             <div class="user__list">
 
-                {% for user in ctx_users %}
-                    <div class="user__info">
-                        <h1>Студент</h1>
+                {% for homeworks in ctx_homeworks %}
+                    <div class="homework__info">
+                        <h1>Home Work</h1>
                         <div class="info">
-                            <span id="user_name">{{user.first_name}} {{user.last_name}}</span>
-                            <br> ID: {{user.id}}
+                            <span id="homework_name">{{homework.first_name}} {{homework.last_name}}</span>
+                            <br> ID: {{homework.id}}
                             <br> Логин: {{user.email}}
-                            <br> Роль:
+                            <br> Title: {{homework.title}}
+                            <br> Subject: {{homework.subject}}
+                            <br> logotype: {{homework.logo}}
                             <span id="role">
                                 {% if user.is_superuser %}Admin{% else %}User{% endif %}
                             </span>
                         </div>
-                        <a class="edit"   href="{% url 'page_show' user.id %}" role="button">Профиль</a>
-                        <a class="delete" href="{% url 'page_delete' %}" role="button">Удалить</a>
+                        <a class="edit"   href="{% url 'page_show' user.id %}" role="button">homework</a>
+                        <a class="delete" href="{% url 'page_delete' %}" role="button">delete</a>
 
                     <!--<button class="edit" onclick="showProfile()">Профиль</button>
                         <button class="delete">Удалить</button>-->

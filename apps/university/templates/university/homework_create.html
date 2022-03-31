@@ -1,0 +1,45 @@
+homework_create.html
+[20:30]
+{% extends 'university/base.html' %}
+{% block title %}Добавить ДЗ{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Добавить ДЗ</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        {% include 'university/form_template.html' %}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Загрузить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Добавление ДЗ</h3>
+                    <h3>Правила:</h3>
+                    <ul>
+                        <li>Формат лого: .JPEG | .JPG | .PNG</li>
+                        <li>Размер лого до 1 мб.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

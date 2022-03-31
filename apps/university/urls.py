@@ -6,17 +6,31 @@ from university import views
 
 from university.views import (
     IndexView,
+    ShowView,
+    AdminView,
+    DeleteView,
+    AboutView,
+    PrimitiveView,
+    LoginView,
+    RegisterView,
+    LogoutView
+)
+
+from university.forms import (
+    HomeworkView
 )
 
 
-urlpatterns = [
-    path('',                    views.index,     name='page_main'),
-    path('show/<int:user_id>/', views.show,      name='page_show'),
-    path('delete/',             views.delete,    name='page_delete'),
-    path('about/',              views.about,     name='page_about'),
-    path('primitive/',          views.primitive, name='page_primitive'),
 
-    path('register/', views.register, name='page_register'),
-    path('login/',    views.login,    name='page_login'),
-    path('logout/',   views.logout,   name='page_logout'),
+urlpatterns = [
+    path('',                    IndexView.as_view(),     name='page_main'),
+    path('show/<int:user_id>/', ShowView.as_view(),      name='page_show'),
+    path('delete/',             DeleteView.as_view(),    name='page_delete'),
+    path('Admin/',              AdminView.as_view(),     name='page_admin'),
+    path('about/',              AboutView.as_view(),     name='page_about'),
+    path('Homework/',           HomeworkView.as_view(),  name='page_homework'),
+
+    path('register/', RegisterView.as_view(), name='page_register'),
+    path('login/',    LoginView.as_view(),    name='page_login'),
+    path('logout/',   LogoutView.as_view(),   name='page_logout'),
 ]
